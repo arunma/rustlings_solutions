@@ -7,8 +7,6 @@
 // Execute `rustlings hint iterators3` to get some hints!
 // Have fun :-)
 
-// I AM NOT DONE
-
 #[derive(Debug, PartialEq, Eq)]
 pub enum DivisionError {
     NotDivisible(NotDivisibleError),
@@ -24,7 +22,16 @@ pub struct NotDivisibleError {
 // This function should calculate `a` divided by `b` if `a` is
 // evenly divisible by b.
 // Otherwise, it should return a suitable error.
-pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {}
+pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
+    if b==0{
+        Err(DivisionError::DivideByZero)
+    }
+    else if a % b != 0 {
+        Err(DivisionError::NotDivisible(NotDivisibleError { dividend: a, divisor: b }))
+    } else {
+        Ok(a / b)
+    }
+}
 
 #[cfg(test)]
 mod tests {
@@ -42,7 +49,7 @@ mod tests {
             divide(81, 6),
             Err(DivisionError::NotDivisible(NotDivisibleError {
                 dividend: 81,
-                divisor: 6
+                divisor: 6,
             }))
         );
     }
