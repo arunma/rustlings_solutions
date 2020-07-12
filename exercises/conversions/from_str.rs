@@ -10,7 +10,6 @@ struct Person {
     age: usize,
 }
 
-// I AM NOT DONE
 // Steps:
 // 1. If the length of the provided string is 0, then return an error
 // 2. Split the given string on the commas present in it
@@ -21,6 +20,20 @@ struct Person {
 impl FromStr for Person {
     type Err = String;
     fn from_str(s: &str) -> Result<Person, Self::Err> {
+        if s.is_empty(){
+            Err(String::from("Input string isn't valid for converting to a Person"))
+        }
+        else {
+            let values = s.split(",").collect::<Vec<&str>>();
+            let name = values[0].to_owned();
+            if let Ok(age)= values[1].parse::<usize>(){
+                Ok(Person{name, age})
+            }
+            else{
+                Err(String::from("Can't convert age into a proper number"))
+            }
+        }
+
     }
 }
 

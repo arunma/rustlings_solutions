@@ -3,9 +3,11 @@
 // - Modules
 // - Macros
 
-// Write a macro that passes the test! No hints this time, you can do it!
-
-// I AM NOT DONE
+macro_rules! my_macro {
+    ($val:literal) => {
+         format!{"Hello {}", $val}
+    };
+}
 
 #[cfg(test)]
 mod tests {

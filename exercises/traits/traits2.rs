@@ -10,13 +10,35 @@
 // No boiler plate code this time,
 // you can do this!
 
-// I AM NOT DONE
 
+/*
 trait AppendBar {
     fn append_bar(self) -> Self;
 }
 
 //TODO: Add your code here
+impl AppendBar for Vec<String>{
+    fn append_bar(self) -> Self {
+        //self.iter().map(|each| format!{"{}{}", each, "Bar"}).collect::<Vec<String>>()
+        let mut owned=self;
+        owned.push(String::from("Bar"));
+        owned
+    }
+}
+*/
+
+trait AppendBar {
+    fn append_bar(&mut self) -> Self;
+}
+
+//TODO: Add your code here
+impl AppendBar for Vec<String>{
+    fn append_bar(&mut self) -> Self {
+        self.push(String::from("Bar"));
+        self.to_vec()
+    }
+}
+
 
 
 
