@@ -27,15 +27,18 @@ impl FromStr for Person {
         }
         else {
             let values = s.split(",").collect::<Vec<&str>>();
-            let name = values[0].to_owned();
-            if let Ok(age)= values[1].parse::<usize>(){
-                Ok(Person{name, age})
+            let name_res= if values[0].trim().is_empty(){
+                Err("No name")
             }
             else{
-                Err(String::from("Can't convert age into a proper number"))
+                Ok(values[0].to_owned())
+            };
+
+            match (name_res, values[1].parse::<usize>()){
+                (Ok(name), Ok(age)) => Ok(Person{name, age}),
+                _ => Err(String::from("Can't convert age into a proper number"))
             }
         }
-
     }
 }
 

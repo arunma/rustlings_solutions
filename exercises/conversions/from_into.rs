@@ -34,17 +34,26 @@ impl Default for Person {
 // Otherwise, then return an instantiated Person object with the results
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
-        if s.is_empty() {
+        if s.is_empty(){
             Default::default()
         } else {
             let vals = s.split(",").collect::<Vec<&str>>();
-            let name = vals[0].to_owned();
-            if let Ok(age) = vals[1].parse() {
-                Person { name, age }
+
+           if vals.len() !=2{
+                return Default::default()
             }
-            else{
-                Default::default()
+
+            let name_res = if vals[0].trim().is_empty() {
+                Err("No name")
+            } else {
+                Ok(vals[0].to_owned())
+            };
+
+            match (name_res, vals[1].parse()) {
+                (Ok(name), Ok(age)) => Person { name, age },
+                (_, _) => Default::default()
             }
+
         }
     }
 }
